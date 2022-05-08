@@ -4,10 +4,18 @@ import java.util.List;
 
 public class EndangeredAnimal extends Animal{
 
-    public final boolean ENDANGERED =  true;
+    public static final boolean ENDANGERED =  true;
+    public boolean type;
     public static int id;
 
-    public EndangeredAnimal() {
+    public EndangeredAnimal(String name) {
+        if (name.equals("")){
+            //throw exception if no name is entered
+            throw new IllegalArgumentException("Please enter an animal name.");
+        }
+        this.name = name;
+
+        type = true;
     }
 
     //Saving the endangered animal
@@ -30,19 +38,53 @@ public class EndangeredAnimal extends Animal{
     public static List<EndangeredAnimal> all() {
         String sql = "SELECT * FROM animals WHERE endangered = true";
         try(Connection con = DB.sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(EndangeredAnimal.class);
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(EndangeredAnimal.class);
         }
     }
 
     //find a specific endengered animal
     public static EndangeredAnimal find(){
+        String sql = "SELECT * FROM animals WHERE id =:id";
         try (Connection con = DB.sql2o.open()){
-            String sql = "SELECT * FROM animals WHERE id =:id";
             EndangeredAnimal endangeredAnimal = con.createQuery(sql)
                     .addParameter("id",id)
+                    .throwOnMappingFailure(false)
                     .executeAndFetchFirst(EndangeredAnimal.class);
             return endangeredAnimal;
 
         }
     }
+
+    //updating an endangered animal using its Id
+    public void update(){
+        String sql =  "UPDATE animals SET name = :name WHERE ID = :id";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("name",name)
+                    .addParameter("id",id)
+                    .addParameter("health",health)
+                    .addParameter("age",age)
+                    .addParameter("endangered",ENDANGERED)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }
+    }
+
+    //Deleting an animal that is endanged
+    public void delete(){
+        String sql = "DELETE FROM animals WHERE id = :id";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("name",name)
+                    .addParameter("id",id)
+                    .addParameter("health",health)
+                    .addParameter("age",age)
+                    .addParameter("endangered",ENDANGERED)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate();
+        }
+    }
+
 }

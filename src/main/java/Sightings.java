@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Sightings extends Animal{
 
-    public final boolean ENDANGERED =  false;
+    public static final boolean ENDANGERED =  false;
 
     //Saving the sighting
     public void save(){
