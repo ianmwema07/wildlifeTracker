@@ -1,10 +1,14 @@
 import org.sql2o.Connection;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Sightings extends Animal{
 
     public static final boolean ENDANGERED =  false;
+    private String location;
+    private String ranger_name;
+    private Timestamp timestamp;
 
     //Saving the sighting
     public void save(){
@@ -41,3 +45,6 @@ public class Sightings extends Animal{
         }
     }
 }
+
+//ALTER TABLE Customers
+//ADD Email varchar(255);
