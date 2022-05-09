@@ -1,0 +1,17 @@
+
+{{#partial "content"}}
+    <h1 class="alternate-result">Heroes</h1>
+
+    {{#if animals}}
+        {{#each animals }}
+            <p><a href="/animals/{{id}}/heroes/{{id}}">{{name}}</a></p>
+        {{/each}}
+    {{else}}
+        <p class="alternate-result">No Animals!</p>
+    {{/if}}
+
+{{/partial}}
+
+{{> layout.hbs}}
+
+
