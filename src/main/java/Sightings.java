@@ -1,4 +1,5 @@
 import org.sql2o.Connection;
+import org.sql2o.Sql2o;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,10 +11,12 @@ public class Sightings extends Animal{
     private String rangerName;
     private Timestamp timestamp;
 
+    private final Sql2o sql2o;
+
 
 
 //constrructor to initiate a new sighting.
-    public Sightings(int id, String name,String health,int age,boolean ENDANGERED, String location, String rangerName, Timestamp timestamp) {
+    public Sightings(int id, String name,String health,int age,boolean ENDANGERED, String location, String rangerName, Timestamp timestamp,Sql2o sql2o) {
         if (rangerName.equals("")) {
             throw new IllegalArgumentException("Please enter Ranger name.");
         }
@@ -26,6 +29,7 @@ public class Sightings extends Animal{
         this.ENDANGERED = ENDANGERED;
         this.age = age;
         this.save();
+        this.sql2o = sql2o;
     }
 
 

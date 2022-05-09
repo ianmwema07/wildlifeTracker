@@ -8,7 +8,10 @@ public class EndangeredAnimal extends Animal{
     public boolean type;
     public static int id;
 
-    public EndangeredAnimal(String name) {
+    private final Sql2o sql2o;
+
+    public EndangeredAnimal(String name, Sql2o sql2o) {
+        this.sql2o = sql2o;
         if (name.equals("")){
             //throw exception if no name is entered
             throw new IllegalArgumentException("Please enter an animal name.");
