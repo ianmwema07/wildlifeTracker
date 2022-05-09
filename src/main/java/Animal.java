@@ -4,7 +4,7 @@ public abstract class Animal {
 
     public String health;
 
-    public String age;
+    public int age;
 
 
     public int getId() {
